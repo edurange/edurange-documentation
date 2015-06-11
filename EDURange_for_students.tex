@@ -1,0 +1,462 @@
+\documentclass[11pt]{report}
+\usepackage{times}
+\usepackage{fullpage}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb, graphicx}
+\usepackage{amsmath, amssymb, graphicx, tikz, fancybox,relsize}
+
+\newcommand{\eat}[1]{}
+\renewcommand{\thesection}{\Alph{section}}
+
+%from http://devdaily.com/blog/post/latex/control-line-spacing-in-itemize-enumerate-tags/
+\newenvironment{packenum}{
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
+
+\makeatletter
+    \def\thebibliography#1{\chapter*{References Cited\@mkboth
+      {REFERENCES CITED}{REFERENCES CITED}}\list
+      {[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
+        \advance\leftmargin\labelsep
+        \usecounter{enumi}}
+      \def\newblock{\hskip .11em plus .33em minus .07em}
+      \sloppy\clubpenalty4000\widowpenalty4000
+      \sfcode`\.=1000\relax}
+    \makeatother
+
+\begin{document}
+
+\title{EDURange Student's Manual}
+% Instructions for Faculty
+% \author{Locasto, Weiss, Mache, Boesen}
+\maketitle
+
+% \input{intro} 
+\section{Introduction}
+\label{sec:intro}
+{\bf  This document will be updated as changes are made.}
+EDURange is both a collection of interactive, collaborative cybersecurity exercises and a framework 
+for creating these exercises.  Currently, we have four exercises:  Recon, ELF Infection, strace and 
+fuzzing.  They can be done in any order.  The most important learning goal is developing the
+analytical skills of understanding complex systems and complex data, i.e. 
+understand how the relevant system works.  Most of the exercises also require a minimal level
+of understanding of some of the tools.
+
+ Each of the exercises was designed to be expanded to have more levels.
+
+\begin{itemize}
+\item {\bf Recon} is an exercise to examine how network protocols such as TCP, UDP, and ICMP 
+can be used to reveal information about a network.  Recon 
+focuses on reconnaissance to determine hosts in an unknown network. 
+The student can explore tradeoffs between speed and stealth
+when using tools such as nmap.
+More advanced levels will address intrusion detection and network monitoring.
+
+\item {\bf Strace} (dynamic analysis of binaries) poses the challenge of 
+ understanding what
+a process is doing based on its system calls.  Students learn to filter large 
+amounts of data to distinguish between normal and anomalous behavior.
+
+\item {\bf Elf infection} assesses the student's understanding 
+of the structure of an executable file.  The goal is to teach the student, having identified that a program is 
+doing something malicious, where that code has been injected and how it works.  This 
+is a reverse engineering problem and can use a range of tools, including readelf, objdump, gdb, 
+strace and netstat.
+
+\item {\bf Fuzzing} is an attack-defense exercise where the defender must correctly implement a user 
+interface that filters malformed expressions.  In the simplest version, the interface is for a 
+calculator, and the defender must implement both the interface and the application.  
+
+\item {\bf Scapy Hunt} poses the challenge of analyzing network traffic 
+to understand who is communicating with whom and how. The player is trying to get data from an ftp server
+which is not on the same subnet, but one of the hosts on its network is communicating with it.
+By default the player can only see packets sent to the server and must craft packets to get them routed
+to the target and get a response back.
+
+\item {\bf ROP} needs better documentation.  It teaches return-oriented programming, and requires
+a decent understanding of x86 assembly language.  The student
+will learn how the PLT (procedure lookup table) and the GOT (global offset table) work
+and how to find their addresses in an executable file.
+
+
+\item {\bf Firewall} is still being implemented.  It requires students to understand the 
+interactions between multiple firewalls which have different rule sets.
+
+
+\end{itemize}
+
+ The standard tool for Recon is nmap, and while it is necessary to learn how to use 
+that tool in order to do this exercise, that is
+not the most important learning goal.  Similarly, the Elf Infection 
+exercise uses standard tools such as netstat but requires that students
+reason about the behavior of a complex system to discover which binary is infected and 
+what it is doing.
+Scapy hunt is about listening passively to discover hosts on the local network and 
+which other hosts they are talking to.
+The strace exercise uses the strace utility, but it is about how to look at the system calls that
+a process makes in order to understand what the process might be doing.  
+%we need an intro to EDURange/AWS lab -- who should write that?
+
+
+\subsection*{Using EDURange: AWS}
+Your instructor will give you an access code that you can use to register for 
+EDURange on AWS.  You will register at \url{http://cloud.edurange.org}.
+When you register, you will be placed in a group.  For each exercise,
+you will receive an e-mail with your password to connect via ssh to 
+public IP address for that exercise.  Your username will remain the same.
+
+
+
+\section{Exercises}
+
+\subsection{strace}
+\subsubsection{Background}
+One of the important skills that is part of cyber security is being able to analyze malware.  
+These skills overlap with debugging, except that the problems can be more subtle.
+This exercise focuses on dynamic analysis of programs, i.e. analyzing what a program does while it
+is running.  It turns out that in order to do anything, a program or process relies heavily on
+the operating system.  The system call (syscalls) can reveal a lot about what is program is doing.
+One of the tools for examining the syscalls is strace.  You should first figure out where the strace
+binary is located and what some of the options are (look at the man pages).  You will start with 
+whitebox testing of some programs 
+for which you have the source code.  Then, you can move to blackbox testing using trace files.
+The trace files that you will analyze are in the /tmp/ directory on the AWS Linux VM that you are
+assigned to.  
+
+Then, you will read through the traces, read the man pages for many of the system calls,
+and try to figure out which utility corresponds to each trace you examine.  You can verify
+your guess by stracing a given utility.  The last strace in this example has two executables
+running.
+If you are working in a group, think about how you can divide up the work in an efficient way.
+
+\subsubsection{Laboratory Assignment and Questions}
+Q1: Your home directory contains various files that will be used in this scenario. 
+One is the file empty.c, whose contents are: 
+
+\begin{verbatim}
+   int main () {}
+\end{verbatim}
+
+Compile this program as follows:
+\begin{verbatim}
+   gcc -o empty empty.c
+\end{verbatim}
+
+Now run strace to execute the empty program: 
+\begin{verbatim}
+   strace ./empty
+\end{verbatim}
+
+What do you think the output of strace indicates in this case? 
+How many different syscall functions do you see?
+
+\vspace{0.1in}
+\noindent
+Q2: The -o option of strace writes its output to a file. Do the following: 
+\begin{verbatim}
+   strace -o empty1 ./empty
+   strace -o empty2 ./empty
+   diff empty1 empty2
+\end{verbatim}
+
+Explain the differences reported between traces empty1 and empty2.
+
+\vspace{0.1in}
+\noindent
+Q3: Study the program copy.c.  
+\begin{verbatim}
+# include <stdio.h>
+# include <stdlib.h>
+
+int main (int argc, char** argv) {
+  char c;
+  FILE* inFile;
+  FILE* outFile;
+  char outFileName[256];
+  if (argc != 3) {
+    printf("program usage: ./copy <infile> <outfile>\n");
+    exit(1);
+  }
+  snprintf(outFileName, sizeof(outFileName), "%s/%s", getenv("HOME"), argv[2]);
+  inFile = fopen(argv[1], "r");
+  outFile = fopen(outFileName, "w");
+  printf("Copying ``%s to %s\n", argv[1], outFileName);
+  while ((c = fgetc(inFile)) != EOF) {
+	fprintf(outFile, "%c", c);
+  }
+  fclose(inFile);
+  fclose(outFile);
+}
+\end{verbatim}
+
+
+Compile it to an executable named copy, and use strace to execute it as follows: 
+\begin{verbatim}
+strace ./copy tiger.txt mytiger.txt
+\end{verbatim}
+
+Explain the non-boilerplate parts of the trace by associating them with specific lines in copy.c. 
+
+\vspace{0.1in}
+\noindent
+Q4: The file strace-identify was created by calling strace on a command. The first line of the trace has been deleted to make it harder to identify. Determine the command on which strace was called to produce this trace. 
+
+\vspace{0.1in}
+\noindent
+Q5: The file mystery is an executable whose source code is not available.  Use strace to explain what the program does in the context of the following examples:
+\begin{verbatim}
+./mystery foo abc 
+./mystery foo def 
+./mystery baz ghi
+\end{verbatim}
+
+
+
+\vspace{0.1in}
+\noindent
+Q6.  Create a one-line ``secret'' file.  Here’s an example, though of course you choose something different as your secret: 
+
+\begin{verbatim}
+echo "My phone number is 123-456-7890" > secret
+\end{verbatim}
+
+Now display the secret to yourself using cat: 
+\begin{verbatim}
+
+cat secret
+\end{verbatim}
+
+Is your file really secret?  How much do you trust the cat program?  Run strace on cat secret to determine what it’s actually doing  Can other students read your secret? Can you read the secrets of other students? Explain everything you observe. 
+
+
+\vspace{0.1in}
+\noindent
+Q7.  Here is a simple shell script in script.sh:
+
+\begin{verbatim}
+   #!/bin/bash
+   echo "a" > foo.txt
+   echo "bc" >> foo.txt
+   echo `id -urn` >> foo.txt
+   chmod 750 foo.txt
+   cat foo.txt | wc}
+\end{verbatim}
+
+
+Compare the outputs of the following calls to strace involving this script. Explain what you see in the traces in terms of the commands in the script. 
+
+\begin{verbatim}
+   strace ./script.sh
+   strace -f ./script.sh
+\end{verbatim}
+
+\vspace{0.1in}
+\noindent
+Q8.  Sometimes strace prints out an overwhelming amount of output. One way to filter through the output is to save the trace to a file and search through the file with grep.  But strace is equipped with some options that can do some summarization and filtering. To see some of these, try the following, and explain the results:
+
+\begin{verbatim}
+   strace find /etc/pki
+   strace -c find /etc/pki
+   strace -e trace=file find /etc/pki
+   strace -e trace=open,close,read,write find /etc/pki
+\end{verbatim}
+
+\subsubsection{Discussion Questions}
+\begin{enumerate}
+  \item what are the major types of syscalls?  Which ones would you look for when black box testing?
+  \item Explain how you would diguise a rootkit that copies a file to a hidden directory.
+  \item Explain how you would disguise a rootkit that opens a reverse shell.
+\end{enumerate}
+
+
+
+\subsection{Recon I}
+\subsubsection{Background}
+\subsubsection*{ What are TCP and UDP?}
+
+In order to understand this exercise, you should be familiar with the 3-way handshake for TCP.
+You should also know something about ICMP and UDP.  This exercise is not designed to teach you
+all of the details of those protocols, but it will teach you why some of those details are important.
+You can read about them in any standard networking textbook.
+
+You will learn in this exercise, how these and other protocols can be used to discover hosts on a network,
+which ports on those hosts are open, and what applications are running on them.
+In practice, each message that is sent over the Internet 
+uses multiple protocols, which are divided into five layers: physical layer, link layer, network layer,
+transport layer and application layer.
+For example, the physical layer handles what is encoded as a 0 or 1.
+The link layer handles communication on local area networks (LANs).
+The network layer handles routing on wide area networks (WANs), e.g. IP.
+The transport layer handles ports and processes, e.g. TCP, UDP, ICMP.
+The application layer handles applications communicating with each other, e.g. http, ftp,
+by nesting packets inside of packets.  In general,
+these packets correspond to layers  of functionality:   
+TCP is connection-oriented and is responsible for 
+a number of things including reliably conveying messages between the application layers on two hosts.  
+The three-way handshake establishes this pairing with the following sequence: SYN, SYN-ACK,  and ACK
+You can get a summary of the important protocols and their layers in:
+Chapter 4 of {\it Hacking: The Art of Exploitation} (Erickson)[1] or Chapter 2 of {\it Counter Hack Reloaded} [2].  
+{\it Network Security} by Kaufman, Perlman, Speciner [3]
+
+\subsubsection{Learning Outcomes for Recon I}
+%The learning goals for the reconnaissance exercise are:
+Answer the following questions:
+\begin{enumerate}
+   \item what is the 3-way handshake?
+   \item what does the SYN flag do?
+   \item What does 10.1.1.0/17 mean?  how many IP addresses does that include?
+   \item What are the options for nmap and what are their differences in terms of time, stealth and
+   protocols?
+   \item which ports does nmap -sT scan?
+   \item which ports does nmap -sU scan?
+\end{enumerate}
+
+\eat{
+\begin{itemize}
+\item understanding networking protocols (TCP, UDP, ICMP) and how they can be exploited for recon.
+\item developing the security mindset
+\item understanding CIDR network configuration and how subdivide a network IP range.
+\item use nmap to find hosts and open ports on a network.
+\end{itemize}
+} % end comment
+
+\subsubsection{Laboratory Assignment}
+\begin{enumerate}
+  \item The first goal is to locate hosts on the target network using a TCP scan.  What flags do you
+    set to do this?  Use tcpdump or tshark to list the SYN and SYN-ACK packets.  What ports are 
+    scanned?  Is there a pattern?
+    How many packets are sent?  What is the scan time?
+  \item How many IP addresses are there in the target network?  How would you divide up the address space
+    into two equal parts?  Divide the recon task into 2 parts and have a different person scan each part.
+  \item Try a ping scan.  What flags did you use?  Do the same hosts show up?  How many ports are
+    scanned?  What is the scan time?
+  \item Try a UDP scan. What flags did you use?  Do the same hosts show up?  How many ports are
+    scanned?  What is the scan time?
+  \item Make your scan faster.  What flags did you use?
+  \item Make your scan more stealthy.  What flags did you use?
+\end{enumerate}
+
+\eat{
+subnets: how to split an IP range, IP CIDR notation
+
+tcpdump (man tcpdump) on VM
+Wireshark will sniff network traffic.  Although it may not capture 
+all traffic on your network, it will at least show you what you network interface can see,
+including all of the messages that your computer is sending.  
+This can be very useful when you are figuring out what nmap is doing.  Since we are not
+currently using Xwindow forwarding, 
+
+
+
+What you need to know about the command line interface:
+
+Linux command line: man man, cd, ls , pwd, mkdir, 
+teach the basics of Linux, find the file called password.txt
+
+\subsubsection*{ nmap}
+
+ How does nmap work?
+nmap generates packets, sends them, and examines the responses (if there are any).
+For example, nmap -sT 192.168.12.1  will send TCP packets to ports 1-1024 at IP address 192.168.12.1.
+In order to understand what nmap is doing, we will use tshark, which is a CLI for Wireshark.
+read [3] on Wireshark and t-shark.  The parameters to check on nmap include 
+-sS, -sP, -sT, -sU, what about the -T option and -n?
+
+This is important so students can see what is happening.
+Can you see the 3-way handshake?  Is the IP address of the attack host visible?
+What happens if you spoof the return IP address?  Can nmap do that?
+What does nmap -sS do?
+Suppose you want to map the network faster, without being stealthy?  What are the -T options?
+How would you detect that a computer is scanning your network, running t-shark?
+
+Tips: use -n for no DNS lookup.  What is DNS? read [4]
+nmap has lots of options, so focus on the following first: -T, -sS, -sP, -sT, -n, -o
+
+
+Using EDURange (students): 
+In order to get started, you need to understand to connect to Amazon's AWS, the gateway and team hosts.
+You need some kind of credentials to login.  You need to login to the a gateway on Amazon in order to use 
+EDURange, but first you will need a password.  You will be given a URL at the time of the exercise that will 
+tell you your password and that will be the gateway computer.
+Note that for now, pw will be generated randomly by the yaml parser.
+navigate to gateway url in browser and get a browser-based ssh client,  which will ask for uname/password
+
+ideas for level-0 edurange games: debug challenges, clone from github.  netcat on port 8000, why doesn't work? 
+ARP table, delete gateway,
+} % end comment
+
+
+{\bf Diagram of Recon I network}
+% use tikz to draw the network configurations
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
+\tikzstyle{tiny} = [inner sep=0pt, minimum size=2pt, text centered, fill=blue!20]
+\tikzstyle{medium} = [inner sep=4pt, minimum size=4pt, text centered, fill=blue!20]
+\tikzstyle{subnet} = [fill=blue!20]
+\tikzstyle{rectangle} = [align=center]
+
+\begin{figure}[h]
+\hfill
+\begin{center}
+
+\begin{tikzpicture}[node distance=10mm, >=latex]
+%\draw (-1.5,-1) circle (0.5);
+   \node (Internet) at (0, 1) [rectangle, draw] {$Internet$};
+   \node (Student) at (4,0) [rectangle, draw] {$Student$} edge[<->] (Internet);
+   \node (Instructor) at (-4, 0) [rectangle, draw] {$Instructor$} edge[<->] (Internet);
+   \node (NatSubnet) at (0, -2) [rectangle, subnet, draw] {NAT \\ (10.0.128.0/28)} edge[<->] (Internet);
+   \node (NatInstance) at (6, -2) [rectangle, draw] {Nat Instance \\ (10.0.128.4)} edge[<->] (NatSubnet);
+
+   \node (PlayerTwoSubnet) at (6, -4) [rectangle, subnet, draw] {Player 2 \\ (10.0.128.32/28)} edge[<->] (NatSubnet);
+   \node (PlayerTwoInstance) at (6, -6) [rectangle, draw] {Player 2 Instance \\ (10.0.128.34)} edge[<->] (PlayerTwoSubnet);
+
+   \node (PlayerOneSubnet) at (-6, -4) [rectangle, subnet, draw] {Player 1 \\ $(10.0.128.16/28)$} edge[<->] (NatSubnet);
+   \node (PlayerOneInstance) at (-6, -6) [rectangle, draw] {Player 1 Instance \\ (10.0.128.18)} edge[<->] (PlayerOneSubnet);
+
+   \node (BattleSpace) at (0, -4) [rectangle, subnet, draw] {Battle Space \\ (10.0.127.255/17)} edge[<->] (NatSubnet);
+   \node (BattleSpaceInstance) at (0, -6) [rectangle, draw] {BattleSpace Instance 1 \\ (10.0.3.3)} edge[<->] (BattleSpace);
+
+\end{tikzpicture}
+\caption{Conceptual diagram of the Recon I game. Note subnets are blue, and IP addresses are just
+                    as an example.}
+\end{center}
+\end{figure}
+
+\subsubsection{Discussion Questions}
+\begin{enumerate}
+  \item What are some ways to maintain stealth?
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Elf Infection}
+The Elf infection exercise only uses a single VM for each team.  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Scapy Hunt}
+
+
+
+
+
+\section{References}
+[1] Hacking: The Art of Exploitation(Chapter..)
+
+[2] Counterhack Reloaded (Chapter 2)
+
+[3] man pages for nmap
+
+
+\section*{contributors}
+Stefan Boesen, Erin Davis, Michael Locasto, Jens Mache,  Lyn Turbak, Richard Weiss, 
+
+%\bibliographystyle{plain}
+%\bibliography{livefire}
+
+\end{document}
