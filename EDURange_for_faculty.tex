@@ -96,16 +96,16 @@ starting an instructor machine and how to use it to create the scenarios.
 There are two modes for using EDURange.  You may be using your own account or you may
 be using the EDURange group account.  The use of those two modes will described separately.}
 
-\subsubsection*{Using the instructor machine from the EDURange account}
+\subsubsection*{Using the instructor machine from cloud.edurange}
 If you are going to use the EDURange account, you will access the EDURange console
-on \url{http://cloud.edurange.org:3000}
+on \url{http://cloud.edurange.org}
 using the username and password that you receive from the administrators, 
 and you will need to be a member of the edurange group or the edu\_fac group. 
 There is a form on this website for you to request access, but you can also 
 send e-mail to kaheah [at] gmail.com or weissr [at] evergreen.edu .  Once you have an account,
 here are the basic steps to run a scenario:
 \begin{itemize}
-  \item Login to http://cloud.edurange.org:3000.  % screen shot
+  \item Login to http://cloud.edurange.org.  % screen shot
   \item Give registration code to students -- this allows them to register for their student account.
     Students then use the registration code to sign up.
   \item When students register and you refresh your home page, you will see that they are automatically 
@@ -199,6 +199,13 @@ change their passwords using standard commands on the VMs.
 \section{Exercises}
 
 \begin{itemize}
+\item {\bf Recon} is an exercise to examine how network protocols such as TCP, UDP, and ICMP 
+can be used to reveal information about a network.  Recon 
+focuses on reconnaissance to determine hosts in an unknown network. 
+The student can explore tradeoffs between speed and stealth
+when using tools such as nmap.
+More advanced levels will address intrusion detection and network monitoring.
+
 \item {\bf Strace} (dynamic analysis of binaries) poses the challenge of 
  understanding what
 a process is doing based on its system calls.  Students learn to filter large 
@@ -210,23 +217,19 @@ doing something malicious, where that code has been injected and how it works.  
 is a reverse engineering problem and can use a range of tools, including readelf, objdump, gdb, 
 strace and netstat.
 
-\item {\bf Recon} is an exercise to examine how network protocols such as TCP, UDP, and ICMP 
-can be used to reveal information about a network.  Recon 
-focuses on reconnaissance to determine hosts in an unknown network. 
-The student can explore tradeoffs between speed and stealth
-when using tools such as nmap.
-More advanced levels will address intrusion detection and network monitoring.
-
 \item {\bf Fuzzing} is an attack-defense exercise where the defender must correctly implement a user 
 interface that filters malformed expressions.  In the simplest version, the interface is for a 
 calculator, and the defender must implement both the interface and the application.  
-\eat{
+
 \item {\bf Scapy Hunt} poses the challenge of analyzing network traffic 
 to understand who is communicating with whom and how. The player is trying to get data from an ftp server
 which is not on the same subnet, but one of the hosts on its network is communicating with it.
 By default the player can only see packets sent to the server and must craft packets to get them routed
 to the target and get a response back.
 
+\item {\bf ROP} guides the student through reverse engineering tasks required for return-oriented-programming exploits.  Currently, this exercise does not have a tutorial, and all of the instructions are embedded in the Python code.
+
+\eat{
 \item {\bf Firewall} is still being implemented.  It requires students to understand the 
 interactions between multiple firewalls which have different rule sets.
 } % end comment
