@@ -105,6 +105,7 @@ This document was produced by a script and is not comprehensive. Refer to the mo
 >  Backdoored version of the UnrealIRCd 3.2.8.1 introduced to some file mirrors in November 2009 
 
 **Difficulty:** low  
+**Module Link:** [UnrealIRCd 3.2.8.1 Backdoor](https://github.com/cliffe/SecGen/tree/master/modules/vulnerabilities/unix/irc/unrealirc_3281_backdoor)  
 **References:**
 * https://www.unrealircd.org/txt/unrealsecadvisory.20100612.txt
 * https://www.rapid7.com/db/modules/exploit/unix/irc/unreal_ircd_3281_backdoor
