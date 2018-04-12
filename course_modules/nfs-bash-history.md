@@ -23,7 +23,27 @@ root@isengard:/home/locasto# history
    18  ifconfig enp0s3
    19  netstat -lptn
    20  history
+root@isengard:/home/locasto#
+root@isengard:/home/locasto# man ifconfig
+root@isengard:/home/locasto# killall NetworkManager
+root@isengard:/home/locasto# tcpdump -n -i enp0s3
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on enp0s3, link-type EN10MB (Ethernet), capture size 262144 bytes
+12:50:14.370365 ARP, Request who-has 10.0.2.1 tell 10.0.2.15, length 28
+12:50:15.384562 ARP, Request who-has 10.0.2.1 tell 10.0.2.15, length 28
+12:50:16.407918 ARP, Request who-has 10.0.2.1 tell 10.0.2.15, length 28
+12:50:17.431924 ARP, Request who-has 10.0.2.1 tell 10.0.2.15, length 28
+12:50:18.455984 ARP, Request who-has 10.0.2.1 tell 10.0.2.15, length 28
+12:50:19.480170 ARP, Request who-has 10.0.2.1 tell 10.0.2.15, length 28
+12:50:20.504562 ARP, Request who-has 10.0.2.1 tell 10.0.2.15, length 28
+12:50:21.528955 ARP, Request who-has 10.0.2.1 tell 10.0.2.15, length 28
+12:50:22.552650 ARP, Request who-has 10.0.2.1 tell 10.0.2.15, length 28
+^C
+9 packets captured
+9 packets received by filter
+0 packets dropped by kernel
 root@isengard:/home/locasto# 
+
 ```
 
 # Normal User Alice Bash History
