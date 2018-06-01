@@ -80,6 +80,11 @@
   * arp
   * tcpdump
 
+## Assessment questions
+*
+*
+*
+*
 
 ## Things to "see"
 
