@@ -17,12 +17,13 @@
   collection of nodes that has agreed (somehow, subject to a standards
   process [1] predicated on building in weaknesses for the receipient)
   to interpret a particular sequence of bytes in a consistent fashion
-  (but this is a faulty assumption [2]);
+  (but this is a faulty assumption [2,3]);
  
-  [1] Postel's Principle
+  [1] Postel's Principle,  in RFC 760, "an implementation should be conservative in its sending behavior, and liberal in its receiving behavior"
 
-  [2] cf. Ptacek and Newsham, Sommer and Paxson; protocol dialects,
-  optional extensions, LangSec, etc.
+  [2] Ptacek and Newsham, Insertion, evasion, and denial of service: Eluding network intrusion detection 
+  [3] Sommer and Paxson, Outside the closed world: On using machine learning for network intrusion detection; 
+       protocol dialects, optional extensions, LangSec, etc.
 
 * an appreciation for seeing the 'network' as a resource you can read
   from and write to; particularly Ethernet/IPv4 networks require no
