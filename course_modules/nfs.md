@@ -22,7 +22,9 @@
   [1] Postel's Principle,  in RFC 760, "an implementation should be conservative in its sending behavior, and liberal in its receiving behavior"
 
   [2] Ptacek and Newsham, Insertion, evasion, and denial of service: Eluding network intrusion detection 
-  [3] Sommer and Paxson, Outside the closed world: On using machine learning for network intrusion detection; 
+  
+  [3] Sommer and Paxson, Outside the closed world: On using machine learning for network intrusion detection 
+  
        protocol dialects, optional extensions, LangSec, etc.
 
 * an appreciation for seeing the 'network' as a resource you can read
