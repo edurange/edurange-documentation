@@ -39,11 +39,12 @@ Questions can be found upon logging into your EDURange account.
 
 ### Discussion Questions
 
-1. Why did you see the following message when you used ssh the first
+1. 
+    Why did you see the following message when you used ssh the first
 time to connect to the NAT?
     ```
-    The authenticity of host \[IP address\] can't be established.
-    ECDSA key fingerprint is SHA256:\[hash value\].
+    The authenticity of host [IP address] can't be established.
+    ECDSA key fingerprint is SHA256:[hash value].
     ```
 
 2. What were some of the different ways each network limited or allowed

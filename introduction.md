@@ -1,7 +1,3 @@
-% EDURange Student Manual
-%
-% July 2019
-
 # Introduction
 
 EDURange is an NSF-funded project that is both a collection of
