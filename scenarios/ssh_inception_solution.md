@@ -2,21 +2,22 @@
 
 This guide provides a brief description of the steps necessary to pass each level of ssh inception.
 
-#### Getting to Starting Line  
+#### Getting to Starting Line
 
 Students must ssh into the public instance. From there they will be instructed to `ssh 10.0.0.5` to get to Starting Line
 
 #### Starting Line
 
 Students must use the `-p` option in `ssh` to advance to First Stop.
-For example 
+For example
+
 ```
-student@StartLine:~$ ssh -p 123 10.0.0.7 
+student@StartLine:~$ ssh -p 123 10.0.0.7
 ```
 
-#### First Stop to Second Stop 
+#### First Stop to Second Stop
 
-Students must use nmap to find the right IP address for the next server. They can find their subnet by using ifconfig. 
+Students must use nmap to find the right IP address for the next server. They can find their subnet by using ifconfig.
 
 ```
 student@FirstStop:~$ ifconfig
@@ -30,7 +31,8 @@ eth0      Link encap:Ethernet  HWaddr 02:7f:d0:af:99:52
           RX bytes:13022915 (13.0 MB)  TX bytes:184629 (184.6 KB)
 ```
 Students can determine the subnet is `10.0.0.0/27` in CIDR notation because the `inet addr` is `10.0.0.7` and `Mask` is `255.255.255.224`.
-With this information we can use `nmap` on the network
+With this information we can use `nmap` on the network.
+
 ```
 student@FirstStop:~$ nmap 10.0.0.0/27
 
@@ -83,23 +85,26 @@ PORT    STATE SERVICE
 
 Nmap done: 32 IP addresses (8 hosts up) scanned in 1.73 seconds
 ```
+
 The "next" host is `10.0.0.10`
 
 #### Second Stop to Third Stop
 
 There is a `id_rsa` private key in their home directory they can use to get to the next host.
+
 ```
 student@SecondStop:~$ ssh -i id_rsa 10.0.0.13
 ```
 
 #### Third Stop to Fourth Stop
 
-Third stop has two phases. First, they need to use grep or find to search through the directory for the hidden credentials. Students cannot access Third Stop from Second Stop, because Third stop is blocking the IP of Second Stop. They must ssh to Third stop from First Stop or Starting Line. 
+Third stop has two phases. First, they need to use grep or find to search through the directory for the hidden credentials. Students cannot access Third Stop from Second Stop, because Third stop is blocking the IP of Second Stop. They must ssh to Third stop from First Stop or Starting Line.
 
-#### Fourth Stop to Fifth Stop 
+#### Fourth Stop to Fifth Stop
 
 Students can use `nmap` to discover that host `10.0.0.14` has port 22 for ftp open.
 Then they can use `ftp` to connect, and use the username `anonymous` and any password:
+
 ```
 student@FourthStop:~$ ftp 10.0.0.14
 Connected to 10.0.0.14.
@@ -127,7 +132,9 @@ student@FourthStop:~$ cat hint
 ip: 10.0.0.17
 decryption_password: 8fddakjfds0s9f
 ```
+
 With this hint they can use the decryption password to get the password for the next host.
+
 ```
 student@FourthStop:~$ ./decryptpass encryptedpassword
 enter aes-256-cbc decryption password:
@@ -141,10 +148,12 @@ This gives them the password needed to log on to satans palace.
 Students can find the final host with nmap at `10.0.0.19`, and notice it has "the most evil port" `666` open.
 When they log in with `ssh -p 666 10.0.0.19` they are immediately kicked out.
 This can be bypassed by providing `ssh` a command to run. For example
+
 ```
 ssh -p 666 10.0.0.19 cat final_flag
 ```
 
 #### Final Flag
 
-The final flag is encoded using a caesar cipher.
+The final flag is encoded using a [caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher).
+
