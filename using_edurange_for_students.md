@@ -10,4 +10,3 @@ public IP address of a gateway for that exercise. Some exercises will
 also have questions to be answered via the EDURange scenario page.
 Others have questions listed in this manual that your instructor might
 have separate instructions for.
-
