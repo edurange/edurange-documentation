@@ -1,7 +1,3 @@
-% EDURange Instructor’s Manual
-%
-% March 6, 2017
-
 Using Instructor’s Manual
 --------------------------------------
 
