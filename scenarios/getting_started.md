@@ -1,6 +1,6 @@
 ## Getting Started
 
-![Welcome to CyberSec](scenarios/getting_started/9ca3dfd7a7a9862e.png)
+![Welcome to CyberSec](/scenarios/getting_started/9ca3dfd7a7a9862e.png)
 
 Congratulations recruit and welcome to CyberSec. As you should know we provide security services to you, our communities, and small businesses. You've made it this far, I suppose that means you may be helpful. But first comes the training. We need to strengthen your skills before you can truly be of use. Go through each tab to the left and at the end we will test what you have learned. Remember, this world is being controlled by the malicious corporations and individuals and we must learn to protect ourselves from their invasive attacks. We must protect our data. This is why you are here. To protect yourself, your company and your community. And it all starts here, at the beginning, with a terminal command. 
 
@@ -24,7 +24,7 @@ In summation it allows you to do stuff faster than GUI and provides an amazing a
 
 Open up terminal for the rest of this training. Or `ssh` into the server for the command line experience.
 
-![How to start terminal on the Ubuntu operating system.](scenarios/getting_started/b7f58483b822bea.png)
+![How to start terminal on the Ubuntu operating system.](/scenarios/getting_started/b7f58483b822bea.png)
 
 
 ### Linux File System
@@ -33,7 +33,7 @@ Open up terminal for the rest of this training. Or `ssh` into the server for the
 
 Linux folders and files are arranged like an upside down tree, where the slash `/` is called the root, or beginning, of all your files in the entire computer. The root is the base of the tree and as you go down it keeps splitting into branches and leaves. The leaves would be a file and the branches are folders.
 
-![A visualization of the linux filesystem hierarchy](scenarios/getting_started/c2019687a1939086.png)
+![A visualization of the linux filesystem hierarchy](/scenarios/getting_started/c2019687a1939086.png)
 
 #### __/  vs.  logging in as root__
 
@@ -91,7 +91,7 @@ Now type
 
 Then hit enter.
 
-![An example of using `ls -la` to view detailed information about files in a directory.](scenarios/getting_started/49d2815db43300a8.png)
+![An example of using `ls -la` to view detailed information about files in a directory.](getting_started/49d2815db43300a8.png)
 
 That's a lot of info! What you see is all the files and folders in the folder you are at currently. 
 
