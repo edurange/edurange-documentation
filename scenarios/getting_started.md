@@ -35,7 +35,7 @@ Linux folders and files are arranged like an upside down tree, where the slash `
 
 ![A visualization of the linux filesystem hierarchy](/scenarios/getting_started/c2019687a1939086.png)
 
-#### __/  vs.  logging in as root__
+#### __/  vs.  /root__
 
 The root, signified by a `/` , is the beginning of your files. But you can also log in as the root user. When you do this, your home directory (where your files are typically saved) is in the folder /root not at, `/`. The /root folder is not to be confused with the slash (root) the beginning of all the files. Just like if you were logged in as bermic you would typically save your files in /home/bermic, whereas the root user saves their files in /root.
 
@@ -295,10 +295,13 @@ There is a LOT that `vim` can do but we won't list it all here. Do a search on t
 TASK: In your home directory in a folder called editme there is a file called editme.txt, open that up in vim. Delete lines 4 and 5 and add 2 more lines of anything you would like at the end of the file. Don't forget to save.
 </aside>
 
-#### __Wild Card and Regular expressions__
+#### __Wild Cards, globbing and Regular expressions__
 
-Regular expressions are used to help you find something on your computer and can be used in programming to enhance your programs. There are a LOT of websites out there that teach you all about it but the gist is that you can use symbols like a * to mean something when parsing through text. For example the * is a wild card. Let's say I wanted to find a file with the word spekter in it. But there could be other text before and after the word spekter. So I could say search for, *spekter*. This means, search for spekter and I don't care if there is anything else before or after. 
+Commands like ls and find can use pattern matching, so that you can leverage partial information and don't need to know exactly 
+what you are looking for. This is sometimes called globbing. The gist is that you can use symbols like * to mean something when parsing through text. For example the * is a wild card. Let's say I wanted to find a file with the word spekter in it. But there could be other text before and after the word spekter. So I could say search for, \*spekter\*. This means, search for spekter and I don't care if there is anything else before or after. 
 
+Some commands like grep handle pattern matching using regular expressions. 
+Regular expressions are used to help you find something on your computer and can be used in programming to enhance your programs. There are a LOT of websites out there that teach you all about it but the 
 To learn about how powerful regular expressions are check out these sites:
 
 [https://regexone.com/](https://regexone.com/)
