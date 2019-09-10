@@ -298,7 +298,7 @@ TASK: In your home directory in a folder called editme there is a file called ed
 #### __Wild Cards, globbing and Regular expressions__
 
 Commands like ls and find can use pattern matching, so that you can leverage partial information and don't need to know exactly 
-what you are looking for. This is sometimes called globbing. The gist is that you can use symbols like * to mean something when parsing through text. For example the * is a wild card. Let's say I wanted to find a file with the word spekter in it. But there could be other text before and after the word spekter. So I could say search for, \*spekter\*. This means, search for spekter and I don't care if there is anything else before or after. 
+what you are looking for. This is sometimes called globbing. The gist is that you can use symbols like * to mean something when soting through filenames. For example the * is a wild card. Let's say I wanted to find a file with the word spekter in it. But there could be other text before and after the word spekter. So I could say search for, \*spekter\*. This means, search for spekter and I don't care if there is anything else before or after. 
 
 Some commands like grep handle pattern matching using regular expressions. 
 Regular expressions are used to help you find something on your computer and can be used in programming to enhance your programs. There are a LOT of websites out there that teach you all about it but the 
