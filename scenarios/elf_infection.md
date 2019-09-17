@@ -56,7 +56,7 @@ While you are working through the scenario, try to answer the following questons
 
 2.) What does the parasite code do?
 
-3.) wWhere is the parasite code located in the ELF file?
+3.) Where is the parasite code located in the ELF file?
 
 4.) How is control redirected in the file to execute the parasite as well as the regular code?
 
