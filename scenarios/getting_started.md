@@ -35,11 +35,11 @@ Linux folders and files are arranged like an upside down tree, where the slash `
 
 ![A visualization of the linux filesystem hierarchy](/scenarios/getting_started/c2019687a1939086.png)
 
-#### __/  vs.  /root__
+#### __/.  vs.  /root__
 
 The root, signified by a `/` , is the beginning of your files. But you can also log in as the root user. When you do this, your home directory (where your files are typically saved) is in the folder /root not at, `/`. The /root folder is not to be confused with the slash (root) the beginning of all the files. Just like if you were logged in as bermic you would typically save your files in /home/bermic, whereas the root user saves their files in /root.
 
-__Important__, a root user is someone who has access to everything on the computer. They could even delete everything in a computer. It is best practices to disable root or use a VERY strong password. For example using numbers, letters, capitals, special symbols and a random sampling of each, and no dictionary words.
+__Important__, a root user is someone who has access to everything on the computer. They could even delete everything in a computer. It is best practices to disable root login or use a VERY strong password. For example using numbers, letters, capitals, special symbols and a random sampling of each, and no dictionary words.
 
 
 ### Commands
@@ -173,7 +173,7 @@ You'll see something like, cat.jpg: JPEG image data, Exif standard: TIFF image d
 
 #### __cat__
 
-Now let's learn a new command, `cat`. `cat` prints out the text from a file.
+Now let's learn a new command, `cat`, which has very little to do with cats. `cat` prints out the text from a file.
 
 Type 
 
