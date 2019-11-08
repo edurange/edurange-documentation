@@ -96,7 +96,7 @@ Then hit enter.
 That's a lot of info! What you see is all the files and folders in the folder you are at currently. 
 
 * The first column is the type of file followed by permissions. – means a regular file. d is a directory (folder). l is a link. rwx are the permission for each file. rwx stands for 7 so rwxrwxrwx would be 777. These correspond to binary. There are 3 bits. 000 would stand for 0. 111 is 7. 101 is 5, etc. Each file has visible 3 permissions User, Group, Anyone.
-* The next column is the number of links or directories in the folder
+* The next column is the number of hard links to a file or directories in the folder
 * The 3rd column is the user that owns the folder/file
 * The 4th column is the group that owns the folder/file 
 * The 5th is the size of the file/folder
