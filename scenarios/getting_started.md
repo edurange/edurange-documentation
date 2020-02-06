@@ -1,6 +1,6 @@
 ## Getting Started
 
-![Welcome to CyberSec](scenarios/getting_started/9ca3dfd7a7a9862e.png)
+![Welcome to CyberSec](/scenarios/getting_started/9ca3dfd7a7a9862e.png)
 
 Congratulations recruit and welcome to CyberSec. As you should know we provide security services to you, our communities, and small businesses. You've made it this far, I suppose that means you may be helpful. But first comes the training. We need to strengthen your skills before you can truly be of use. Go through each tab to the left and at the end we will test what you have learned. Remember, this world is being controlled by the malicious corporations and individuals and we must learn to protect ourselves from their invasive attacks. We must protect our data. This is why you are here. To protect yourself, your company and your community. And it all starts here, at the beginning, with a terminal command. 
 
@@ -24,7 +24,7 @@ In summation it allows you to do stuff faster than GUI and provides an amazing a
 
 Open up terminal for the rest of this training. Or `ssh` into the server for the command line experience.
 
-![How to start terminal on the Ubuntu operating system.](scenarios/getting_started/b7f58483b822bea.png)
+![How to start terminal on the Ubuntu operating system.](/scenarios/getting_started/b7f58483b822bea.png)
 
 
 ### Linux File System
@@ -33,13 +33,13 @@ Open up terminal for the rest of this training. Or `ssh` into the server for the
 
 Linux folders and files are arranged like an upside down tree, where the slash `/` is called the root, or beginning, of all your files in the entire computer. The root is the base of the tree and as you go down it keeps splitting into branches and leaves. The leaves would be a file and the branches are folders.
 
-![A visualization of the linux filesystem hierarchy](scenarios/getting_started/c2019687a1939086.png)
+![A visualization of the linux filesystem hierarchy](/scenarios/getting_started/c2019687a1939086.png)
 
-#### __/  vs.  logging in as root__
+#### __/.  vs.  /root__
 
 The root, signified by a `/` , is the beginning of your files. But you can also log in as the root user. When you do this, your home directory (where your files are typically saved) is in the folder /root not at, `/`. The /root folder is not to be confused with the slash (root) the beginning of all the files. Just like if you were logged in as bermic you would typically save your files in /home/bermic, whereas the root user saves their files in /root.
 
-__Important__, a root user is someone who has access to everything on the computer. They could even delete everything in a computer. It is best practices to disable root or use a VERY strong password. For example using numbers, letters, capitals, special symbols and a random sampling of each, and no dictionary words.
+__Important__, a root user is someone who has access to everything on the computer. They could even delete everything in a computer. It is best practices to disable root login or use a VERY strong password. For example using numbers, letters, capitals, special symbols and a random sampling of each, and no dictionary words.
 
 
 ### Commands
@@ -91,12 +91,12 @@ Now type
 
 Then hit enter.
 
-![An example of using `ls -la` to view detailed information about files in a directory.](scenarios/getting_started/49d2815db43300a8.png)
+![An example of using `ls -la` to view detailed information about files in a directory.](getting_started/49d2815db43300a8.png)
 
 That's a lot of info! What you see is all the files and folders in the folder you are at currently. 
 
 * The first column is the type of file followed by permissions. – means a regular file. d is a directory (folder). l is a link. rwx are the permission for each file. rwx stands for 7 so rwxrwxrwx would be 777. These correspond to binary. There are 3 bits. 000 would stand for 0. 111 is 7. 101 is 5, etc. Each file has visible 3 permissions User, Group, Anyone.
-* The next column is the number of links or directories in the folder
+* The next column is the number of hard links to a file or directories in the folder
 * The 3rd column is the user that owns the folder/file
 * The 4th column is the group that owns the folder/file 
 * The 5th is the size of the file/folder
@@ -173,7 +173,7 @@ You'll see something like, cat.jpg: JPEG image data, Exif standard: TIFF image d
 
 #### __cat__
 
-Now let's learn a new command, `cat`. `cat` prints out the text from a file.
+Now let's learn a new command, `cat`, which has very little to do with cats. `cat` prints out the text from a file.
 
 Type 
 
@@ -295,10 +295,13 @@ There is a LOT that `vim` can do but we won't list it all here. Do a search on t
 TASK: In your home directory in a folder called editme there is a file called editme.txt, open that up in vim. Delete lines 4 and 5 and add 2 more lines of anything you would like at the end of the file. Don't forget to save.
 </aside>
 
-#### __Wild Card and Regular expressions__
+#### __Wild Cards, globbing and Regular expressions__
 
-Regular expressions are used to help you find something on your computer and can be used in programming to enhance your programs. There are a LOT of websites out there that teach you all about it but the gist is that you can use symbols like a * to mean something when parsing through text. For example the * is a wild card. Let's say I wanted to find a file with the word spekter in it. But there could be other text before and after the word spekter. So I could say search for, *spekter*. This means, search for spekter and I don't care if there is anything else before or after. 
+Commands like ls and find can use pattern matching, so that you can leverage partial information and don't need to know exactly 
+what you are looking for. This is sometimes called globbing. The gist is that you can use symbols like * to mean something when soting through filenames. For example the * is a wild card. Let's say I wanted to find a file with the word spekter in it. But there could be other text before and after the word spekter. So I could say search for, \*spekter\*. This means, search for spekter and I don't care if there is anything else before or after. 
 
+Some commands like grep handle pattern matching using regular expressions. 
+Regular expressions are used to help you find something on your computer and can be used in programming to enhance your programs. There are a LOT of websites out there that teach you all about it but the 
 To learn about how powerful regular expressions are check out these sites:
 
 [https://regexone.com/](https://regexone.com/)

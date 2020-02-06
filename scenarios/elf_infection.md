@@ -50,7 +50,15 @@ your EDURange account.
 
 ### Lab Assignments and Question
 
-UNDER CONSTRUCTION
+While you are working through the scenario, try to answer the following questons:
+
+1.) How did you determine that it was infected?
+
+2.) What does the parasite code do?
+
+3.) Where is the parasite code located in the ELF file?
+
+4.) How is control redirected in the file to execute the parasite as well as the regular code?
 
 ### Discussion Questions
 
