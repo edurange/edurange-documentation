@@ -183,7 +183,36 @@ you can try to run OS commands to get additional information.
 -   -   -   
 
 ####SQL Injection:
-	There are typical attacks that can be used to enumerate the users on the system.  (And other info if you are diligent!).  Do some Google searches for SQL injection!
+- There are typical attacks that can be used to enumerate the users on the system.  (And other info if you are diligent!).  Do some Google searches for SQL injection!
+
+-   -   -
+
+Incorrectly filtered escape characters [Wikipedia Reference](https://en.wikipedia.org/wiki/SQL\_injection) :  
+This form of injection occurs when user input is not filtered for escape characters and is then passed into an SQL statement.  
+This results in the potential manipulation of the statements performed on the database by the end-user of the application.   
+
+- The Following line of code illustrates this vulnerability:
+	- `statement = "SELECT * FROM users WHERE name = '" + userName + "';"`
+
+This SQL code is designed to pull up the records of the specified username from its table of users.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;However, if the "userName" variable is crafted in a specific way by a malicious user, the SQL   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;statement may do more than the code author intended. For example, setting the "userName" variable as: 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`' OR '1'='1`
+
+renders one of the following SQL statements by the parent language:  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `SELECT * FROM users WHERE name = '' OR '1'='1';`  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `SELECT * FROM users WHERE name = '' OR '1'='1' -- ';`  
+
+If this code were to be used in an authentication procedure then this example could be used to force the   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;selection of every data field (\*) from all users rather than from one specific user name as the coder   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;intended, because the evaluation of '1'='1' is always true.
+
+It is also possible to use the UNION SELECT to pull data from database tables using (for example):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`' OR 1=1 UNION SELECT null,null,username,password FROM users#`
+
 
 ####File work:
     • Files may be txt, zip, wav, pcapng!  And some may be hidden inside files! Some may be hidden in super-secret directories and not named like a card!  
