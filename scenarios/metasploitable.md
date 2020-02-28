@@ -22,11 +22,11 @@ single host or a network segment/ip range. Nmap manipulates TCP flags to
 elicit information. By analyzing TCP and UDP probes and comparing them
 against fingerprints of defined responses nmap can:
 
-    • Detect/discover live hosts on a network (server/host discovery),
-    • Identify active UDP and TCP ports (port enumeration) 
-    • Identify software version information for open ports (service discovery)
-    • Identify operating system information;
-    • Detect potential vulnerabilities and security holes.
+- Detect/discover live hosts on a network (server/host discovery),  
+- Identify active UDP and TCP ports (port enumeration)  
+- Identify software version information for open ports (service discovery)  
+- Identify operating system information;  
+- Detect potential vulnerabilities and security holes.  
 
 -   -   -   -   -   
 
@@ -39,11 +39,11 @@ exploits.
 
 Three key components are:
 
-  • **Exploits** – the method of exploiting a vulnerability in an asset. MSF currently has > 1,900 exploits.
+  - **Exploits** – the method of exploiting a vulnerability in an asset. MSF currently has > 1,900 exploits.
 
-  • **Payloads** – the code that can be run on a target that has been compromised. MSF currently has > 550 payloads.
+  - **Payloads** – the code that can be run on a target that has been compromised. MSF currently has > 550 payloads.
 
-  • **Auxiliary modules** – the programs that can perform fuzzing, scanning, and sniffing. MSF currently has > 1,000 auxiliary modules.
+  - **Auxiliary modules** – the programs that can perform fuzzing, scanning, and sniffing. MSF currently has > 1,000 auxiliary modules.
 
 -   -   -   
 
@@ -76,16 +76,16 @@ potential exploits and breach the server.
 
 ###Typical process:
 
-    1. Gain info about your virtual machine (Linux commands)
-    2. Identify the servers on the network segment (nmap).
-    3. Identify the open ports on a specific server (nmap).
-    4. Identify the services and version info on a specific server (nmap)
-    5. Search Metasploit for exploits, auxiliary modules, and payloads for the identified services.
-    6. Attempt to gain access to the target server (MSF, Web/SQL Injection)
-    7. Identify other accounts on the system (/etc/passwd, /etc/shadow).
-    8. Find a way to escalate privilege to gain root access.
-    9. Locate the capture the flag (CTF) target files.
-    10. Perform any work needed on the CTF target files so that you can hash the file.
+1. Gain info about your virtual machine (Linux commands)
+2. Identify the servers on the network segment (nmap).
+3. Identify the open ports on a specific server (nmap).
+4. Identify the services and version info on a specific server (nmap)
+5. Search Metasploit for exploits, auxiliary modules, and payloads for the identified services.
+6. Attempt to gain access to the target server (MSF, Web/SQL Injection)
+7. Identify other accounts on the system (/etc/passwd, /etc/shadow).
+8. Find a way to escalate privilege to gain root access.
+9. Locate the capture the flag (CTF) target files.
+10. Perform any work needed on the CTF target files so that you can hash the file.
 
 A key feature of MSF is the ability to search.  
 
@@ -105,7 +105,7 @@ Below are some examples of searches you might perform:
 ####Other key MSF commands: 
 #####(commands are in bold, arguments highlighted)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msf5 > **use** `auxiliary/scanner/ftp/ftp\_version`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msf5 > **use** `auxiliary/scanner/ftp/ftp_version`
 
 - If successful, this would set your context to this exploit.  You can see that this happened by looking at the new prompt.
 
@@ -168,16 +168,16 @@ you can try to run OS commands to get additional information.
 
 
 ####Gaining access:
-    • FTP and ssh are great avenues for accessing the system.  
-    • Using an ssh_login scanner is a great way to attempt passwords to gain access.
-    • Use a SQL injection to attack a website on the target using lynx (a text browser).
+- FTP and ssh are great avenues for accessing the system.  
+- Using an ssh_login scanner is a great way to attempt passwords to gain access.
+- Use a SQL injection to attack a website on the target using lynx (a text browser).
 
 -   -   -   
 
 ####Escalation:
-    • Gain access to the server and get a dump of the /etc/passwd file to identify users.
-    • Use the ssh_login scanner to attempt typical passwords.
-    • Get access to the /etc/shadow file to identify password hashes.
+- Gain access to the server and get a dump of the /etc/passwd file to identify users.
+- Use the ssh_login scanner to attempt typical passwords.
+- Get access to the /etc/shadow file to identify password hashes.
 
 
 -   -   -   
@@ -215,8 +215,9 @@ It is also possible to use the UNION SELECT to pull data from database tables us
 
 
 ####File work:
-    • Files may be txt, zip, wav, pcapng!  And some may be hidden inside files! Some may be hidden in super-secret directories and not named like a card!  
-    • Some of the files can be hashed as is to get the answer.  Some, however, require some work.
-    • Exfiltrate the files from the target VM to your NAT VM.  Then exfiltrated the files to your local computer to view the files (to verify if they are viewable without modification or require modifications).  Use md5sum to get the hash of the file.
-    • Tools that might be helpful working on the more difficult files: exiftool, binwalk, fcrackzip, gimp, Wireshark, base64, and mount.
+- Files may be txt, zip, wav, pcapng!  And some may be hidden inside files! Some may be hidden in super-secret directories and not named like a card!  
+- Some of the files can be hashed as is to get the answer.  Some, however, require some work.
+- Exfiltrate the files from the target VM to your NAT VM.  Then exfiltrated the files to your local computer to view the files (to verify if they are viewable without modification or require modifications).  
+- Use md5sum to get the hash of the file.  
+- Tools that might be helpful working on the more difficult files: exiftool, binwalk, fcrackzip, gimp, Wireshark, base64, and mount.
 
